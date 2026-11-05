@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#1a0f2b" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self'" />
+  <title>Tyler's Ball Buster</title>
+  <meta name="description" content="A candy-coated falling-ball puzzle game. Stack the Sixlets, clear the lines, and bust every ball." />
+  <link rel="icon" href="assets/icon.png" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="deco deco-1" aria-hidden="true"></div>
+  <div class="deco deco-2" aria-hidden="true"></div>
+  <div class="deco deco-3" aria-hidden="true"></div>
+
+  <div class="app">
+    <header class="header">
+      <h1 class="logo" aria-label="Tyler's Ball Buster">
+        <span class="logo-tyler" aria-hidden="true">Tyler's</span>
+        <span class="logo-main" aria-hidden="true"><span style="--c:#ff3d4f">B</span><span style="--c:#ff8a1e">a</span><span style="--c:#ffd21f">l</span><span style="--c:#3fd45c">l</span><span class="logo-gap"></span><span style="--c:#2f9dff">B</span><span style="--c:#a45cff">u</span><span style="--c:#ff5cc8">s</span><span style="--c:#ff3d4f">t</span><span style="--c:#ff8a1e">e</span><span style="--c:#ffd21f">r</span></span>
+      </h1>
+      <p class="eyebrow">Candy Arcade</p>
+      <p class="tagline">Stack those lines. Bust them Balls. Don't let'em hit the ceiling.</p>
+    </header>
+
+    <div class="hud">
+      <div class="hud-stat hud-score">
+        <span>Score</span>
+        <strong id="score">0</strong>
+      </div>
+      <div class="hud-stat">
+        <span>Level</span>
+        <strong id="level">1</strong>
+      </div>
+      <div class="hud-stat">
+        <span>Lines</span>
+        <strong id="lines">0</strong>
+      </div>
+      <div class="hud-stat hud-best">
+        <span>Best</span>
+        <strong id="best">0</strong>
+      </div>
+      <div class="hud-buttons">
+        <button type="button" class="icon-btn" id="pauseBtn" aria-label="Pause game" title="Pause (P)">⏸</button>
+        <button type="button" class="icon-btn" id="soundBtn" aria-label="Mute sound" title="Mute (M)">🔊</button>
+        <button type="button" class="icon-btn" id="musicBtn" aria-label="Turn music off" title="Music off (N)">🎵</button>
+        <button type="button" class="icon-btn icon-btn-fs" id="fullscreenBtn" aria-label="Enter fullscreen" title="Fullscreen (F11)" aria-pressed="false">⛶</button>
+        <button type="button" class="icon-btn icon-btn-quit" id="quitBtn" aria-label="Quit game" title="Quit game (hold Esc)">✕</button>
+      </div>
+
+      <div class="mixer" aria-label="Volume levels">
+        <span class="mixer-icon" id="sfxIcon" aria-hidden="true">🔊</span>
+        <input
+          type="range"
+          class="slider"
+          id="sfxSlider"
+          min="0"
+          max="100"
+          step="1"
+          value="80"
+          aria-label="Sound effects volume"
+        />
+        <span class="mixer-icon" id="musicIcon" aria-hidden="true">🎵</span>
+        <input
+          type="range"
+          class="slider"
+          id="musicSlider"
+          min="0"
+          max="100"
+          step="1"
+          value="90"
+          aria-label="Music volume"
+        />
+      </div>
+    </div>
+
+    <div class="topbar" aria-label="Tyler's Top Ball Busters">
+      <div class="topbar-head">
+        <span class="topbar-title">Tyler's Top Ball Busters</span>
+        <span class="topbar-actions">
+          <button type="button" class="mini-btn" id="viewScoresBtnMobile">Top 10</button>
+          <button type="button" class="mini-btn mini-btn-help" id="helpBtnMobile" aria-label="How to play">?</button>
+        </span>
+      </div>
+      <ol class="topbar-list" id="topScoresBar" aria-live="polite"></ol>
+    </div>
+
+    <div class="game">
+      <aside class="side side-left">
+        <section class="card">
+          <h2>Hold</h2>
+          <canvas id="hold" class="preview" aria-label="Held piece"></canvas>
+          <p class="card-sub">C / Shift</p>
+        </section>
+        <section class="card top-scores-card">
+          <h2>Tyler's Top Ball Busters</h2>
+          <ol class="score-list" id="topScores" aria-live="polite"></ol>
+          <button type="button" class="card-btn" id="viewScoresBtn">View Top 10</button>
+        </section>
+      </aside>
+
+      <main class="board-area" id="boardArea">
+        <canvas id="board" aria-label="Tyler's Ball Buster playfield"></canvas>
+        <div class="overlay" id="overlay">
+          <div class="overlay-card">
+            <p class="overlay-kicker" id="overlayKicker">Candy Arcade</p>
+            <h2 id="overlayTitle">Ready to bust?</h2>
+            <p class="overlay-text" id="overlayText">Stack the Sixlets, fill a row, and bust it. Keep the candy off the ceiling.</p>
+            <button type="button" class="btn" id="overlayBtn">Start Busting</button>
+            <p class="overlay-hint" id="overlayHint">← → move · ↑ rotate · Space slam · C hold</p>
+          </div>
+        </div>
+      </main>
+
+      <aside class="side side-right">
+        <section class="card">
+          <h2>Next</h2>
+          <canvas id="next" class="preview" aria-label="Upcoming pieces"></canvas>
+        </section>
+        <section class="card tip-card">
+          <h2>Sweet tip</h2>
+          <p class="tip">Four rows at once is a <strong>BALL BUSTER</strong> &mdash; worth 800 &times; your level.</p>
+        </section>
+        <section class="card guide-card">
+          <h2>Need a hand?</h2>
+          <p class="tip">Keys, taps and swipes in one guide.</p>
+          <button type="button" class="card-btn" id="helpBtn">How to Play</button>
+        </section>
+      </aside>
+    </div>
+
+    <div class="touch" id="touchControls" aria-label="Touch controls">
+      <button type="button" class="tbtn" data-action="left" aria-label="Move left">◀</button>
+      <button type="button" class="tbtn" data-action="rotateCCW" aria-label="Rotate counter-clockwise">↺</button>
+      <button type="button" class="tbtn" data-action="rotateCW" aria-label="Rotate clockwise">↻</button>
+      <button type="button" class="tbtn" data-action="right" aria-label="Move right">▶</button>
+      <button type="button" class="tbtn" data-action="soft" aria-label="Soft drop">▼</button>
+      <button type="button" class="tbtn tbtn-wide" data-action="hard" aria-label="Hard drop">⤓ SLAM</button>
+      <button type="button" class="tbtn" data-action="hold" aria-label="Hold piece">HOLD</button>
+    </div>
+
+    <footer class="footer">
+      <p>Made for Tyler. Slam responsibly.</p>
+    </footer>
+  </div>
+
+  <div class="modal hidden" id="helpModal" role="dialog" aria-modal="true" aria-labelledby="helpTitle" aria-hidden="true">
+    <div class="modal-card">
+      <button type="button" class="modal-close" id="helpClose" aria-label="Close how to play">&times;</button>
+      <p class="modal-kicker">Candy Arcade</p>
+      <h2 id="helpTitle">How to Play</h2>
+      <p class="modal-text">
+        Stack the Sixlets, fill a row, and keep the candy below the ceiling. Every control is in
+        this guide.
+      </p>
+      <div class="guide-grid">
+        <section>
+          <h3>Keyboard</h3>
+          <ul class="keys">
+            <li><span><kbd>&larr;</kbd><kbd>&rarr;</kbd></span> Move</li>
+            <li><span><kbd>&uarr;</kbd><kbd>X</kbd></span> Rotate</li>
+            <li><span><kbd>Z</kbd></span> Rotate back</li>
+            <li><span><kbd>&darr;</kbd></span> Soft drop</li>
+            <li><span><kbd>Space</kbd></span> Slam</li>
+            <li><span><kbd>C</kbd></span> Hold</li>
+            <li><span><kbd>P</kbd><kbd>Esc</kbd></span> Pause</li>
+            <li><span><kbd>Esc</kbd></span> Hold to quit</li>
+            <li><span><kbd>M</kbd></span> Sound</li>
+            <li><span><kbd>N</kbd></span> Music</li>
+            <li><span><kbd>F11</kbd></span> Fullscreen</li>
+          </ul>
+        </section>
+        <section>
+          <h3>Tap &amp; Swipe</h3>
+          <ul class="keys">
+            <li><span><kbd>Tap</kbd></span> Rotate once</li>
+            <li><span><kbd>Tap piece</kbd></span> Hold / swap</li>
+            <li><span><kbd>Swipe &harr;</kbd></span> Move</li>
+            <li><span><kbd>Swipe &uarr;</kbd></span> Hold / swap</li>
+            <li><span><kbd>Swipe &darr;</kbd></span> Soft drop</li>
+            <li><span><kbd>Flick &darr;</kbd></span> Slam</li>
+          </ul>
+        </section>
+      </div>
+      <p class="modal-hint">Press Esc or tap the &times; to close</p>
+    </div>
+  </div>
+
+  <div class="modal hidden" id="scoresModal" role="dialog" aria-modal="true" aria-labelledby="scoresTitle" aria-hidden="true">
+    <div class="modal-card">
+      <button type="button" class="modal-close" id="scoresClose" aria-label="Close top scores">&times;</button>
+      <p class="modal-kicker">Hall of fame</p>
+      <h2 id="scoresTitle">Tyler's Top Ball Busters</h2>
+      <p class="modal-text">The ten sweetest scores ever busted.</p>
+      <ol class="score-list score-list-full" id="scoresList" aria-live="polite"></ol>
+      <p class="modal-hint">Press Esc or tap the &times; to close</p>
+    </div>
+  </div>
+
+  <div class="modal hidden" id="initialsModal" role="dialog" aria-modal="true" aria-labelledby="initialsTitle" aria-hidden="true">
+    <div class="modal-card modal-card-narrow">
+      <button type="button" class="modal-close" id="initialsClose" aria-label="Skip entering initials">&times;</button>
+      <p class="modal-kicker" id="initialsKicker">Tyler's Top Ball Busters</p>
+      <h2 id="initialsTitle">New high score!</h2>
+      <p class="modal-text">
+        You scored <strong id="initialsScore">0</strong>. Enter your 3 initials for the leaderboard.
+      </p>
+      <form id="initialsForm" autocomplete="off">
+        <input
+          type="text"
+          id="initialsInput"
+          class="initials-input"
+          maxlength="3"
+          inputmode="text"
+          autocomplete="off"
+          autocapitalize="characters"
+          spellcheck="false"
+          aria-label="Your three initials"
+          placeholder="AAA"
+          value="AAA"
+        />
+        <div class="modal-actions">
+          <button type="submit" class="btn" id="initialsSave">Save Score</button>
+          <button type="button" class="btn btn-ghost" id="initialsSkip">Skip</button>
+        </div>
+      </form>
+      <p class="modal-hint">Press Esc or tap the &times; to skip</p>
+    </div>
+  </div>
+
+  <div class="quit-toast" id="quitToast" role="status" aria-live="polite" aria-hidden="true">
+    <span>Keep holding Esc to quit</span>
+    <span class="quit-toast-bar"><i></i></span>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>

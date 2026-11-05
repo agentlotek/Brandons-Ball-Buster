@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#341a48"/>
+      <stop offset="0.55" stop-color="#221231"/>
+      <stop offset="1" stop-color="#130a1d"/>
+    </linearGradient>
+    <linearGradient id="rim" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.55"/>
+      <stop offset="0.5" stop-color="#ffffff" stop-opacity="0.08"/>
+      <stop offset="1" stop-color="#ff8ad8" stop-opacity="0.32"/>
+    </linearGradient>
+
+    <radialGradient id="pink" cx="0.34" cy="0.28" r="0.78">
+      <stop offset="0" stop-color="#ffd0e9"/>
+      <stop offset="0.3" stop-color="#ff5cc8"/>
+      <stop offset="0.78" stop-color="#e0219a"/>
+      <stop offset="1" stop-color="#8f0b4c"/>
+    </radialGradient>
+    <radialGradient id="yellow" cx="0.34" cy="0.28" r="0.78">
+      <stop offset="0" stop-color="#fff7c4"/>
+      <stop offset="0.32" stop-color="#ffd21f"/>
+      <stop offset="0.78" stop-color="#e3a900"/>
+      <stop offset="1" stop-color="#8a6a00"/>
+    </radialGradient>
+    <radialGradient id="blue" cx="0.34" cy="0.28" r="0.78">
+      <stop offset="0" stop-color="#d6efff"/>
+      <stop offset="0.32" stop-color="#2f9dff"/>
+      <stop offset="0.78" stop-color="#0d70d8"/>
+      <stop offset="1" stop-color="#07539f"/>
+    </radialGradient>
+    <radialGradient id="green" cx="0.34" cy="0.28" r="0.78">
+      <stop offset="0" stop-color="#d8ffde"/>
+      <stop offset="0.32" stop-color="#3fd45c"/>
+      <stop offset="0.78" stop-color="#1faa3c"/>
+      <stop offset="1" stop-color="#0c7327"/>
+    </radialGradient>
+
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="14" stdDeviation="14" flood-color="#000000" flood-opacity="0.45"/>
+    </filter>
+    <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="22"/>
+    </filter>
+  </defs>
+
+  <rect x="14" y="14" width="484" height="484" rx="108" fill="url(#bg)"/>
+  <rect x="14" y="14" width="484" height="484" rx="108" fill="none" stroke="url(#rim)" stroke-width="6"/>
+
+  <circle cx="256" cy="152" r="118" fill="#ff4fb0" opacity="0.20" filter="url(#glow)"/>
+  <circle cx="140" cy="350" r="118" fill="#2f9dff" opacity="0.16" filter="url(#glow)"/>
+
+  <!-- Candy balls in a T shape -->
+  <g filter="url(#shadow)">
+    <circle cx="256" cy="148" r="64" fill="url(#pink)" stroke="#7d0a45" stroke-opacity="0.5" stroke-width="3"/>
+    <circle cx="124" cy="288" r="64" fill="url(#yellow)" stroke="#7d5f00" stroke-opacity="0.45" stroke-width="3"/>
+    <circle cx="256" cy="288" r="64" fill="url(#blue)" stroke="#064a8f" stroke-opacity="0.5" stroke-width="3"/>
+    <circle cx="388" cy="288" r="64" fill="url(#green)" stroke="#0a5e1f" stroke-opacity="0.5" stroke-width="3"/>
+  </g>
+
+  <!-- Specular highlights -->
+  <g fill="#ffffff">
+    <ellipse cx="234" cy="122" rx="25" ry="16" opacity="0.92" transform="rotate(-32 234 122)"/>
+    <ellipse cx="102" cy="262" rx="25" ry="16" opacity="0.9" transform="rotate(-32 102 262)"/>
+    <ellipse cx="234" cy="262" rx="25" ry="16" opacity="0.9" transform="rotate(-32 234 262)"/>
+    <ellipse cx="366" cy="262" rx="25" ry="16" opacity="0.9" transform="rotate(-32 366 262)"/>
+  </g>
+  <g fill="#ffffff">
+    <circle cx="250" cy="137" r="5" opacity="0.75"/>
+    <circle cx="118" cy="277" r="5" opacity="0.72"/>
+    <circle cx="250" cy="277" r="5" opacity="0.72"/>
+    <circle cx="382" cy="277" r="5" opacity="0.72"/>
+  </g>
+
+  <!-- Bottom bounce light -->
+  <g fill="none" stroke="#ffffff" stroke-width="7" stroke-linecap="round" opacity="0.16">
+    <path d="M156 382 c 44 26 128 26 172 0"/>
+  </g>
+
+  <!-- Sugar sparkles -->
+  <g fill="#fff6c9">
+    <path d="M408 112 l 6 16 16 6 -16 6 -6 16 -6 -16 -16 -6 16 -6 z" opacity="0.9"/>
+    <path d="M94 132 l 4 11 11 4 -11 4 -4 11 -4 -11 -11 -4 11 -4 z" opacity="0.75"/>
+    <path d="M420 394 l 3 8 8 3 -8 3 -3 8 -3 -8 -8 -3 8 -3 z" opacity="0.6"/>
+  </g>
+</svg>
