@@ -2,7 +2,7 @@
   'use strict';
 
   /* ============================================================
-     Tyler's Ball Buster
+     Brandon's Ball Buster
      A candy-coated falling-ball puzzle. Four berries per piece.
      ============================================================ */
 
@@ -11,13 +11,13 @@
   const LOCK_DELAY = 420;        // ms a piece rests before locking
   const MAX_LOCK_RESETS = 15;
   const CLEAR_ANIM = 340;        // ms of line-clear celebration
-  const BEST_KEY = 'tylersBallBuster.best';
-  const SCORES_KEY = 'tylersBallBuster.topScores';
+  const BEST_KEY = 'brandonsBallBuster.best';
+  const SCORES_KEY = 'brandonsBallBuster.topScores';
   const MAX_TOP_SCORES = 10;
-  const SOUND_KEY = 'tylersBallBuster.sound';
-  const MUSIC_KEY = 'tylersBallBuster.music';
-  const SFX_VOLUME_KEY = 'tylersBallBuster.sfxVolume';
-  const MUSIC_VOLUME_KEY = 'tylersBallBuster.musicVolume';
+  const SOUND_KEY = 'brandonsBallBuster.sound';
+  const MUSIC_KEY = 'brandonsBallBuster.music';
+  const SFX_VOLUME_KEY = 'brandonsBallBuster.sfxVolume';
+  const MUSIC_VOLUME_KEY = 'brandonsBallBuster.musicVolume';
 
   const DEFAULT_SFX_VOLUME = 0.8;
   const DEFAULT_MUSIC_VOLUME = 0.9;
@@ -969,7 +969,7 @@
   }
 
   /* ============================================================
-     "Tyler's Top Ball Busters" — top 10 scores
+     "Brandon's Top Ball Busters" — top 10 scores
      ============================================================ */
 
   function normalizeInitials(value) {
@@ -1157,7 +1157,7 @@
   function openInitialsModal() {
     initialsOpen = true;
     els.initialsScore.textContent = state.score.toLocaleString();
-    els.initialsKicker.textContent = "Tyler's Top Ball Busters";
+    els.initialsKicker.textContent = "Brandon's Top Ball Busters";
     els.initialsTitle.textContent = pendingGameOver && pendingGameOver.newBest ? 'New high score!' : 'Top 10!';
     els.initialsInput.value = 'AAA';
     openModal(els.initialsModal);
@@ -2043,15 +2043,24 @@
     return !!(window.desktop && typeof window.desktop.toggleFullscreen === 'function');
   }
 
+  function hasMobileFullscreen() {
+    return !!(window.brandonMobile && typeof window.brandonMobile.toggleFullscreen === 'function');
+  }
+
   function applyFullscreenUI(active) {
+    const hint = hasMobileFullscreen() ? '' : ' (F11)';
     els.fullscreenBtn.setAttribute('aria-pressed', String(active));
     els.fullscreenBtn.setAttribute('aria-label', active ? 'Exit fullscreen' : 'Enter fullscreen');
-    els.fullscreenBtn.setAttribute('title', active ? 'Exit fullscreen (F11)' : 'Fullscreen (F11)');
+    els.fullscreenBtn.setAttribute('title', (active ? 'Exit fullscreen' : 'Fullscreen') + hint);
   }
 
   function toggleFullscreen() {
     if (hasDesktopFullscreen()) {
       window.desktop.toggleFullscreen();
+      return;
+    }
+    if (hasMobileFullscreen()) {
+      applyFullscreenUI(!!window.brandonMobile.toggleFullscreen());
       return;
     }
     if (document.fullscreenElement) {
@@ -2078,6 +2087,12 @@
 
     if (window.desktop && typeof window.desktop.quit === 'function') {
       window.desktop.quit();
+      return;
+    }
+
+    // Android shell: close the activity.
+    if (window.brandonMobile && typeof window.brandonMobile.quit === 'function') {
+      window.brandonMobile.quit();
       return;
     }
 
@@ -2553,6 +2568,14 @@
     }
   }
 
+  if (hasMobileFullscreen() && typeof window.brandonMobile.isFullscreen === 'function') {
+    try {
+      applyFullscreenUI(!!window.brandonMobile.isFullscreen());
+    } catch (err) {
+      /* ignore */
+    }
+  }
+
   els.sfxSlider.addEventListener('input', (event) => {
     setSfxVolume(Number(event.target.value) / 100);
   });
@@ -2641,7 +2664,7 @@
   window.addEventListener('keydown', unlockMusic);
 
   showOverlay({
-    kicker: 'Candy Arcade',
+    kicker: 'Berry Arcade',
     title: 'Ready to bust?',
     text: 'Stack the berries, fill a row, and bust it. Keep the candy off the ceiling.',
     btn: 'Start Busting',

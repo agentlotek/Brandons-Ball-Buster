@@ -1,5 +1,5 @@
 /* ============================================================
-   Tyler's Ball Buster — candy arcade styles
+   Brandon's Ball Buster — berry arcade styles
    ============================================================ */
 
 @font-face {
@@ -165,7 +165,7 @@ button {
   letter-spacing: 0.01em;
 }
 
-.logo-tyler {
+.logo-brandon {
   display: block;
   font-size: clamp(17px, 2.4vw, 22px);
   font-weight: 600;
@@ -1095,7 +1095,7 @@ body.modal-open {
     color: rgba(255, 255, 255, 0.5);
   }
 
-  .logo-tyler {
+  .logo-brandon {
     font-size: 14px;
   }
 

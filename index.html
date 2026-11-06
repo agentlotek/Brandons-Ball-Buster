@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
   <meta name="theme-color" content="#1a0f2b" />
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self'" />
-  <title>Tyler's Ball Buster</title>
-  <meta name="description" content="A candy-coated falling-ball puzzle game. Stack the Sixlets, clear the lines, and bust every ball." />
+  <title>Brandon's Ball Buster</title>
+  <meta name="description" content="A candy-coated falling-ball puzzle game. Stack the berries, clear the lines, and bust every ball." />
   <link rel="icon" href="assets/icon.png" />
   <link rel="stylesheet" href="styles.css" />
 </head>
@@ -17,11 +17,11 @@
 
   <div class="app">
     <header class="header">
-      <h1 class="logo" aria-label="Tyler's Ball Buster">
-        <span class="logo-tyler" aria-hidden="true">Tyler's</span>
+      <h1 class="logo" aria-label="Brandon's Ball Buster">
+        <span class="logo-brandon" aria-hidden="true">Brandon's</span>
         <span class="logo-main" aria-hidden="true"><span style="--c:#ff3d4f">B</span><span style="--c:#ff8a1e">a</span><span style="--c:#ffd21f">l</span><span style="--c:#3fd45c">l</span><span class="logo-gap"></span><span style="--c:#2f9dff">B</span><span style="--c:#a45cff">u</span><span style="--c:#ff5cc8">s</span><span style="--c:#ff3d4f">t</span><span style="--c:#ff8a1e">e</span><span style="--c:#ffd21f">r</span></span>
       </h1>
-      <p class="eyebrow">Candy Arcade</p>
+      <p class="eyebrow">Berry Arcade</p>
       <p class="tagline">Stack those lines. Bust them Balls. Don't let'em hit the ceiling.</p>
     </header>
 
@@ -76,9 +76,9 @@
       </div>
     </div>
 
-    <div class="topbar" aria-label="Tyler's Top Ball Busters">
+    <div class="topbar" aria-label="Brandon's Top Ball Busters">
       <div class="topbar-head">
-        <span class="topbar-title">Tyler's Top Ball Busters</span>
+        <span class="topbar-title">Brandon's Top Ball Busters</span>
         <span class="topbar-actions">
           <button type="button" class="mini-btn" id="viewScoresBtnMobile">Top 10</button>
           <button type="button" class="mini-btn mini-btn-help" id="helpBtnMobile" aria-label="How to play">?</button>
@@ -95,19 +95,19 @@
           <p class="card-sub">C / Shift</p>
         </section>
         <section class="card top-scores-card">
-          <h2>Tyler's Top Ball Busters</h2>
+          <h2>Brandon's Top Ball Busters</h2>
           <ol class="score-list" id="topScores" aria-live="polite"></ol>
           <button type="button" class="card-btn" id="viewScoresBtn">View Top 10</button>
         </section>
       </aside>
 
       <main class="board-area" id="boardArea">
-        <canvas id="board" aria-label="Tyler's Ball Buster playfield"></canvas>
+        <canvas id="board" aria-label="Brandon's Ball Buster playfield"></canvas>
         <div class="overlay" id="overlay">
           <div class="overlay-card">
-            <p class="overlay-kicker" id="overlayKicker">Candy Arcade</p>
+            <p class="overlay-kicker" id="overlayKicker">Berry Arcade</p>
             <h2 id="overlayTitle">Ready to bust?</h2>
-            <p class="overlay-text" id="overlayText">Stack the Sixlets, fill a row, and bust it. Keep the candy off the ceiling.</p>
+            <p class="overlay-text" id="overlayText">Stack the berries, fill a row, and bust it. Keep the candy off the ceiling.</p>
             <button type="button" class="btn" id="overlayBtn">Start Busting</button>
             <p class="overlay-hint" id="overlayHint">← → move · ↑ rotate · Space slam · C hold</p>
           </div>
@@ -142,17 +142,17 @@
     </div>
 
     <footer class="footer">
-      <p>Made for Tyler. Slam responsibly.</p>
+      <p>Made for Brandon. Slam responsibly.</p>
     </footer>
   </div>
 
   <div class="modal hidden" id="helpModal" role="dialog" aria-modal="true" aria-labelledby="helpTitle" aria-hidden="true">
     <div class="modal-card">
       <button type="button" class="modal-close" id="helpClose" aria-label="Close how to play">&times;</button>
-      <p class="modal-kicker">Candy Arcade</p>
+      <p class="modal-kicker">Berry Arcade</p>
       <h2 id="helpTitle">How to Play</h2>
       <p class="modal-text">
-        Stack the Sixlets, fill a row, and keep the candy below the ceiling. Every control is in
+        Stack the berries, fill a row, and keep the candy below the ceiling. Every control is in
         this guide.
       </p>
       <div class="guide-grid">
@@ -192,7 +192,7 @@
     <div class="modal-card">
       <button type="button" class="modal-close" id="scoresClose" aria-label="Close top scores">&times;</button>
       <p class="modal-kicker">Hall of fame</p>
-      <h2 id="scoresTitle">Tyler's Top Ball Busters</h2>
+      <h2 id="scoresTitle">Brandon's Top Ball Busters</h2>
       <p class="modal-text">The ten sweetest scores ever busted.</p>
       <ol class="score-list score-list-full" id="scoresList" aria-live="polite"></ol>
       <p class="modal-hint">Press Esc or tap the &times; to close</p>
@@ -202,7 +202,7 @@
   <div class="modal hidden" id="initialsModal" role="dialog" aria-modal="true" aria-labelledby="initialsTitle" aria-hidden="true">
     <div class="modal-card modal-card-narrow">
       <button type="button" class="modal-close" id="initialsClose" aria-label="Skip entering initials">&times;</button>
-      <p class="modal-kicker" id="initialsKicker">Tyler's Top Ball Busters</p>
+      <p class="modal-kicker" id="initialsKicker">Brandon's Top Ball Busters</p>
       <h2 id="initialsTitle">New high score!</h2>
       <p class="modal-text">
         You scored <strong id="initialsScore">0</strong>. Enter your 3 initials for the leaderboard.

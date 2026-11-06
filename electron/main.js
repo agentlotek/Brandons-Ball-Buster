@@ -3,7 +3,7 @@
 const { app, BrowserWindow, Menu, ipcMain, shell } = require('electron');
 const path = require('node:path');
 
-const APP_ID = 'com.tyler.ballbuster';
+const APP_ID = 'com.brandon.ballbuster';
 
 app.setAppUserModelId(APP_ID);
 
@@ -16,7 +16,7 @@ function createWindow() {
     minWidth: 720,
     minHeight: 620,
     show: false,
-    title: "Tyler's Ball Buster",
+    title: "Brandon's Ball Buster",
     backgroundColor: '#150c22',
     icon: path.join(__dirname, '..', 'assets', 'icon.ico'),
     autoHideMenuBar: true,

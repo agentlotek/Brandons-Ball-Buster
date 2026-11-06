@@ -1,10 +1,10 @@
 {
-  "name": "tylers-ball-buster",
-  "productName": "Tyler's Ball Buster",
+  "name": "brandons-ball-buster",
+  "productName": "Brandon's Ball Buster",
   "version": "2.0.0",
   "description": "A candy-coated falling-ball puzzle game. Stack the berries and bust the lines.",
   "main": "electron/main.js",
-  "author": "Tyler",
+  "author": "Brandon",
   "license": "MIT",
   "private": true,
   "scripts": {
@@ -16,9 +16,9 @@
     "electron-builder": "26.18.0"
   },
   "build": {
-    "appId": "com.tyler.ballbuster",
-    "productName": "Tyler's Ball Buster",
-    "copyright": "Copyright © 2026 Tyler",
+    "appId": "com.brandon.ballbuster",
+    "productName": "Brandon's Ball Buster",
+    "copyright": "Copyright © 2026 Brandon",
     "asar": true,
     "directories": {
       "output": "release"
@@ -40,10 +40,10 @@
         }
       ],
       "icon": "assets/icon.ico",
-      "artifactName": "Tylers-Ball-Buster-${version}.exe"
+      "artifactName": "Brandons-Ball-Buster-${version}.exe"
     },
     "portable": {
-      "artifactName": "Tylers-Ball-Buster-${version}.exe"
+      "artifactName": "Brandons-Ball-Buster-${version}.exe"
     }
   }
 }
