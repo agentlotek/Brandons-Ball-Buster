@@ -255,8 +255,10 @@
     scoresList: document.getElementById('scoresList'),
     viewScoresBtn: document.getElementById('viewScoresBtn'),
     viewScoresBtnMobile: document.getElementById('viewScoresBtnMobile'),
+    scoresBtnHud: document.getElementById('scoresBtnHud'),
     helpBtn: document.getElementById('helpBtn'),
     helpBtnMobile: document.getElementById('helpBtnMobile'),
+    helpBtnHud: document.getElementById('helpBtnHud'),
     helpModal: document.getElementById('helpModal'),
     helpClose: document.getElementById('helpClose'),
     scoresModal: document.getElementById('scoresModal'),
@@ -1196,25 +1198,40 @@
   function layoutBoard() {
     if (!els.boardArea || !els.game) return;
 
-    const mobile = window.matchMedia('(max-width: 820px)').matches;
+    const compact = window.matchMedia(
+      '(max-width: 820px), (max-height: 560px) and (orientation: landscape)'
+    ).matches;
     const touchStyle = window.getComputedStyle(els.touch);
     const touchVisible = touchStyle.display !== 'none';
     const touchRect = els.touch.getBoundingClientRect();
     const touchReserve = touchVisible ? touchRect.height + 30 : 64;
+    const minWidth = compact ? 100 : 150;
 
-    const top = els.boardArea.getBoundingClientRect().top;
-    const available = window.innerHeight - top - touchReserve;
-    const maxByHeight = Math.max(150, available / 2);
-
-    let maxByWidth = 340;
-    if (mobile) {
-      maxByWidth = Math.max(150, window.innerWidth - 36);
+    let maxByHeight;
+    if (compact) {
+      // The game area is flex-grown to the remaining screen height.
+      maxByHeight = Math.max(minWidth, els.game.getBoundingClientRect().height / 2);
     } else {
-      const gameW = els.game.getBoundingClientRect().width;
-      maxByWidth = Math.max(150, gameW - 168 * 2 - 36);
+      const top = els.boardArea.getBoundingClientRect().top;
+      const available = window.innerHeight - top - touchReserve;
+      maxByHeight = Math.max(minWidth, available / 2);
     }
 
-    const width = Math.floor(clamp(Math.min(maxByHeight, maxByWidth), 150, 340));
+    let maxByWidth = 340;
+    if (compact) {
+      // Leave room for the slim Hold/Next rail on the left.
+      const gameRect = els.game.getBoundingClientRect();
+      const rail = document.querySelector('.side-left');
+      const gap = parseFloat(window.getComputedStyle(els.game).columnGap) || 0;
+      const railWidth = rail ? rail.getBoundingClientRect().width : 0;
+      maxByWidth = Math.max(minWidth, gameRect.width - railWidth - gap);
+    } else {
+      const gameW = els.game.getBoundingClientRect().width;
+      maxByWidth = Math.max(minWidth, gameW - 168 * 2 - 36);
+    }
+
+    const maxCap = compact ? 380 : 340;
+    const width = Math.floor(clamp(Math.min(maxByHeight, maxByWidth), minWidth, maxCap));
     els.boardArea.style.width = `${width}px`;
   }
 
@@ -2588,8 +2605,10 @@
 
   els.viewScoresBtn.addEventListener('click', openScoresModal);
   els.viewScoresBtnMobile.addEventListener('click', openScoresModal);
+  els.scoresBtnHud.addEventListener('click', openScoresModal);
   els.helpBtn.addEventListener('click', openHelpModal);
   els.helpBtnMobile.addEventListener('click', openHelpModal);
+  els.helpBtnHud.addEventListener('click', openHelpModal);
   els.helpClose.addEventListener('click', () => closeModal(els.helpModal));
   els.scoresClose.addEventListener('click', () => closeModal(els.scoresModal));
   els.initialsClose.addEventListener('click', () => finishInitials(false));

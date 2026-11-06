@@ -316,6 +316,11 @@ button {
   color: #ffe3e7;
 }
 
+/* Buttons that only appear in the compact phone HUD. */
+.hud-only {
+  display: none;
+}
+
 /* Music muted: dim the note and draw a slash across it */
 
 #musicBtn.off {
@@ -1406,6 +1411,254 @@ body.modal-open {
 
   .deco {
     display: none;
+  }
+}
+
+/* ---------- Phones and small tablets: play-first layout ---------- */
+
+@media (max-width: 820px), (max-height: 560px) and (orientation: landscape) {
+  html,
+  body {
+    height: 100%;
+    overflow: hidden;
+  }
+
+  body {
+    overscroll-behavior: none;
+  }
+
+  .app {
+    height: 100vh;
+    height: 100dvh;
+    max-width: 100%;
+    padding: 6px 6px 8px;
+    padding-top: max(6px, env(safe-area-inset-top));
+    padding-bottom: max(8px, env(safe-area-inset-bottom));
+    gap: 5px;
+  }
+
+  .header,
+  .topbar,
+  .mixer,
+  .footer,
+  .deco,
+  .card-sub,
+  .top-scores-card,
+  .tip-card,
+  .guide-card {
+    display: none;
+  }
+
+  .hud {
+    flex: 0 0 auto;
+    width: 100%;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    gap: 0;
+    padding: 3px 4px;
+    border-radius: 13px;
+  }
+
+  .hud-stat {
+    min-width: 0;
+    padding: 0 5px;
+  }
+
+  .hud-stat span {
+    font-size: 7px;
+    letter-spacing: 0.12em;
+  }
+
+  .hud-stat strong {
+    font-size: 15px;
+    line-height: 1.1;
+  }
+
+  .hud-score {
+    min-width: 46px;
+  }
+
+  .hud-buttons {
+    margin-left: auto;
+    padding-left: 3px;
+    gap: 2px;
+  }
+
+  .icon-btn {
+    width: 26px;
+    height: 26px;
+    font-size: 12px;
+    border-radius: 8px;
+  }
+
+  .hud-only {
+    display: grid;
+  }
+
+  .game {
+    flex: 1 1 auto;
+    width: 100%;
+    max-width: none;
+    min-height: 0;
+    display: grid;
+    grid-template-columns: 56px minmax(0, 1fr);
+    grid-template-rows: auto auto minmax(0, 1fr);
+    grid-template-areas:
+      "hold board"
+      "next board"
+      ". board";
+    column-gap: 8px;
+    row-gap: 6px;
+    align-items: start;
+    justify-content: stretch;
+  }
+
+  .side-left {
+    grid-area: hold;
+  }
+
+  .side-right {
+    grid-area: next;
+  }
+
+  .side {
+    gap: 0;
+    align-self: start;
+  }
+
+  .side .card {
+    padding: 4px 5px 5px;
+    border-radius: 11px;
+  }
+
+  .side .card h2 {
+    margin-bottom: 3px;
+    font-size: 7px;
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+  }
+
+  #hold {
+    aspect-ratio: 1.2 / 1;
+  }
+
+  #next {
+    aspect-ratio: 1 / 1.35;
+  }
+
+  .board-area {
+    grid-area: board;
+    justify-self: center;
+    align-self: center;
+    width: 100%;
+    max-width: 100%;
+    border-radius: 15px;
+  }
+
+  .touch {
+    display: grid;
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    gap: 6px;
+  }
+
+  .tbtn {
+    height: clamp(40px, 5.6vh, 52px);
+    border-radius: 12px;
+  }
+
+  .overlay {
+    padding: 12px;
+  }
+
+  .overlay-card {
+    max-width: 250px;
+  }
+
+  .overlay-text {
+    margin-top: 7px;
+    font-size: 12px;
+  }
+
+  .btn {
+    margin-top: 12px;
+    padding: 9px 20px;
+    font-size: 14px;
+  }
+
+  .overlay-hint {
+    margin-top: 9px;
+    font-size: 9px;
+  }
+}
+
+/* Slightly roomier rail for tablets before the desktop layout kicks in. */
+@media (min-width: 601px) and (max-width: 820px) {
+  .game {
+    grid-template-columns: 76px minmax(0, 1fr);
+  }
+
+  .side .card h2 {
+    font-size: 8px;
+  }
+
+  #hold {
+    aspect-ratio: 1.15 / 1;
+  }
+
+  #next {
+    aspect-ratio: 1 / 1.3;
+  }
+}
+
+/* Short landscape screens: one row of touch buttons keeps height for the board. */
+@media (max-height: 560px) and (orientation: landscape) {
+  .touch {
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 5px;
+  }
+
+  .tbtn {
+    height: 40px;
+    font-size: 15px;
+  }
+
+  .tbtn-wide {
+    grid-column: span 1;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+  }
+}
+
+/* Back, Esc, or the window controls still quit; drop the button on phones. */
+@media (max-width: 600px) {
+  .icon-btn-quit {
+    display: none;
+  }
+}
+
+@media (max-width: 360px) {
+  .app {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+
+  .game {
+    grid-template-columns: 48px minmax(0, 1fr);
+    column-gap: 5px;
+  }
+
+  .icon-btn {
+    width: 24px;
+    height: 24px;
+    font-size: 11px;
+    border-radius: 7px;
+  }
+
+  .hud-stat {
+    padding: 0 4px;
   }
 }
 
